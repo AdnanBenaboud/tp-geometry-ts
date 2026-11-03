@@ -17,5 +17,13 @@ describe("test LineString", () => {
         expect(ln.getPointN(0)).to.equal(p1);
         expect(ln.isEmpty()).to.be.false;
     });
+    it("test getType", () => {
+        expect(new LineString().getType()).to.equal("LineString");
+    });
 
+    it("test getPointN with invalid index", () => {
+        const ln = new LineString([new Point([3.0, 4.0])]);
+        expect(() => ln.getPointN(-1)).to.throw("Index hors limites");
+        expect(() => ln.getPointN(1)).to.throw("Index hors limites");
+    });
 });

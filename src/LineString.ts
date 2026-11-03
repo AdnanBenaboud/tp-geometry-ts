@@ -12,10 +12,6 @@ export default class LineString implements Geometry {
         return "LineString";
     }
 
-    isEmpty(): boolean {
-        return this.points.length === 0;
-    }
-
     getNumPoints(): number {
         return this.points.length;
     }
@@ -27,9 +23,17 @@ export default class LineString implements Geometry {
         return this.points[n];
     }
 
+    isEmpty(): boolean {
+        return this.points.length === 0;
+    }
+
     translate(dx: number, dy: number): void{
         for (const point of this.points) {
             point.translate(dx, dy);
+        }
     }
+
+    clone(): LineString {
+        return new LineString(this.points.map(point => point.clone()));
     }
 }

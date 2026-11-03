@@ -16,5 +16,8 @@ describe("test Point", () => {
         expect(p.x()).to.equal(3.0);
         expect(p.y()).to.equal(4.0);
     });
+    it("test getType", () => {
+    expect(new Point().getType()).to.equal("Point");
+});
 });
 
