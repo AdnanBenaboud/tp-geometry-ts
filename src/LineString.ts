@@ -26,4 +26,10 @@ export default class LineString implements Geometry {
         }
         return this.points[n];
     }
+
+    translate(dx: number, dy: number): void{
+        for (const point of this.points) {
+            point.translate(dx, dy);
+    }
+    }
 }
