@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import WktWriter from "../src/WktWriter";
 import Point from "../src/Point";
 import LineString from "../src/LineString";
+import Geometry from "../src/Geometry";
+import Envelope from "../src/Envelope";
 
 describe("test WktWriter", () => {
     const writer = new WktWriter();
@@ -21,5 +23,18 @@ describe("test WktWriter", () => {
 
     it("écrit une LineString vide", () => {
         expect(writer.writeWKT(new LineString())).to.equal("LINESTRING EMPTY");
+    });
+
+    it("écrit une géometrie non supporté", () => {
+        class Polygon implements Geometry {
+            getType(): string { return "Polygon"; }
+            isEmpty(): boolean { return true; }
+            translate(dx: number, dy: number): void {}
+            clone(): Geometry { return new Polygon(); }
+            getEnvelope(): Envelope { return new Envelope(); }
+        }
+
+        expect(() => writer.writeWKT(new Polygon()))
+            .to.throw("Type de géométrie non supporté : Polygon");
     });
 });

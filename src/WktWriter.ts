@@ -10,6 +10,7 @@ export default class WktWriter {
         if (geometry instanceof LineString) {
             return this.writeLineString(geometry);
         }
+        throw new Error(`Type de géométrie non supporté : ${geometry.getType()}`);
     }
 
     private writePoint(point: Point): string {
