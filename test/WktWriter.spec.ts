@@ -1,0 +1,25 @@
+import { describe, it, expect } from "vitest";
+import WktWriter from "../src/WktWriter";
+import Point from "../src/Point";
+import LineString from "../src/LineString";
+
+describe("test WktWriter", () => {
+    const writer = new WktWriter();
+
+    it("écrit un point", () => {
+        expect(writer.writeWKT(new Point([3.0, 4.0]))).to.equal("POINT (3 4)");
+    });
+
+    it("écrit un point vide", () => {
+        expect(writer.writeWKT(new Point())).to.equal("POINT EMPTY");
+    });
+
+    it("écrit une LineString", () => {
+        const ln = new LineString([new Point([0.0, 0.0]), new Point([1.0, 2.5])]);
+        expect(writer.writeWKT(ln)).to.equal("LINESTRING (0 0, 1 2.5)");
+    });
+
+    it("écrit une LineString vide", () => {
+        expect(writer.writeWKT(new LineString())).to.equal("LINESTRING EMPTY");
+    });
+});
