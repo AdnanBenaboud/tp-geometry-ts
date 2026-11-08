@@ -4,6 +4,7 @@ import Point from "../src/Point";
 import LineString from "../src/LineString";
 import Geometry from "../src/Geometry";
 import Envelope from "../src/Envelope";
+import GeometryVisitor from "../src/GeometryVisitor";
 
 describe("test WktWriter", () => {
     const writer = new WktWriter();
@@ -32,6 +33,7 @@ describe("test WktWriter", () => {
             translate(dx: number, dy: number): void {}
             clone(): Geometry { return new Polygon(); }
             getEnvelope(): Envelope { return new Envelope(); }
+            accept(visitor: GeometryVisitor): string { throw new Error("non supporté"); }
         }
 
         expect(() => writer.writeWKT(new Polygon()))
